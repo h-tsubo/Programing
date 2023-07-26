@@ -7,11 +7,11 @@
 </template>
 
 <script setup>
-import GetIssues from './GetIssues.vue'
-import PostIssues from './PostIssues.vue'
-import PatchIssues from './PatchIssues.vue'
-import GetAndDeleteComment from './GetAndDeleteComment.vue'
-import CommitComment from './CommitComment.vue'
+import GetIssues from './Components/GetIssues.vue'
+import PostIssues from './Components/PostIssues.vue'
+import PatchIssues from './Components/PatchIssues.vue'
+import GetAndDeleteComment from './Components/GetAndDeleteComment.vue'
+import CommitComment from './Components/CommitComment.vue'
 
 const token = 'My GitHub Token'
 </script>
