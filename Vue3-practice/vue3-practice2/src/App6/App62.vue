@@ -1,0 +1,32 @@
+<script setup>
+import {ref} from 'vue'
+const result = ref('')
+const upfile = ref(null)
+const onclick = () => {
+    const file = upfile.value.files[0]
+    const form = new FormData()
+
+    fetch('upload.php', {
+        method: 'POST',
+        body: form
+    })
+
+    .then(function(response){
+        return response.text()
+    })
+
+    .then(function(text) {
+        result.value = text
+    })
+}
+</script>
+
+<template>
+    <form>
+        <input type="file" ref = "upfile"/>
+        <input type="button" value = "アップロード" @click="onclick"/>
+    </form>
+    <div>
+        {{ result }}
+    </div>
+</template>

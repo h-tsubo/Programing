@@ -3,8 +3,9 @@ import {ref} from 'vue'
 const myName = ref('ゲスト')
 const gender = ref('不明')
 const agree = ref('同意しません。')
-const language = ref(['日本語', '英語'])
-const subject = ref(['国語', '英語'])
+const language = ref([])
+const subject = ref([])
+const unit = ref({})
 </script>
 
 <template>
@@ -56,6 +57,17 @@ const subject = ref(['国語', '英語'])
                 <option>社会</option>
             </select>
             <p>好きな教科：{{ subject }}</p>
+        </div>
+        <div>
+            <label for="kb">1KB: </label>
+            <input type="radio" id = "kb" v-model="unit" :value = "{name: 'キロバイト', size: 1024}"/>
+            <br>
+            <label for="mb">1MB: </label>
+            <input type="radio" id = "mb" v-model="unit" :value = "{name: 'メガバイト', size: 1024 * 1024}"/>
+            <br>
+            <label for="gb">1GB: </label>
+            <input type="radio" id = "gb" v-model="unit" :value = "{name: 'ギガバイト', size: 1024*1024*1024}"/>
+            <p>選択値：{{ unit.name }}・{{ unit.size }}byte</p>
         </div>
     </form>
 </template>
