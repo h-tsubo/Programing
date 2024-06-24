@@ -13,5 +13,5 @@ import PatchIssues from './Components/PatchIssues.vue'
 import GetAndDeleteComment from './Components/GetAndDeleteComment.vue'
 import CommitComment from './Components/CommitComment.vue'
 
-const token = '_'
+const token = 'My GitHub Token'
 </script>

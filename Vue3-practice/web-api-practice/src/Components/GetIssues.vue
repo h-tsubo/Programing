@@ -33,7 +33,7 @@
   try {
     const response = await request.get(`/repos/h-tsubo/Programing/issues`)
     issues.value = response.data
-    console.log('getting an issue')
+
   } catch (error) {
     console.error('Issueリストの取得中にエラーが発生しました:', error)
   }
