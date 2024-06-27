@@ -88,6 +88,14 @@ class ViewController extends Controller
         return view('view.style_class', $data);
     }
 
+    public function checked() {
+        $data = [
+            'isEnabled' => true
+        ];
+
+        return view('view.checked', $data);
+    }
+
 }
 
 

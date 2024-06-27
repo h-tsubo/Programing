@@ -24,4 +24,5 @@ Route::get('/view/foreach_assoc', [ViewController::class, 'foreach_assoc']);
 Route::get('/view/foreach_loop', [ViewController::class, 'foreach_loop']);
 Route::get('/view/forelse', [ViewController::class, 'forelse']);
 Route::get('/view/style_class', [ViewController::class, 'style_class']);
+Route::get('/view/checked', [ViewController::class, 'checked']);
 
