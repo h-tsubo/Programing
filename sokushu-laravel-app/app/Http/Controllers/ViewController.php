@@ -96,6 +96,41 @@ class ViewController extends Controller
         return view('view.checked', $data);
     }
 
+    public function master() {
+        $data = [
+            'msg' => 'Hello world!'
+        ];
+
+        return view('view.master', $data);
+    }
+
+    public function comp() {
+        $data = [
+            'title' => 'Hello world!'
+        ];
+
+        return view('view.comp', $data);
+    }
+
+    public function use_dynamic_comp() {
+        $data = [
+            'title' => 'Hello world!',
+            'comp' => 'my-alert',
+        ];
+
+        return view('view.use_dynamic_comp', $data);
+
+    }
+
+    public function sub_view() {
+        $data = [
+            'title' => 'Hello world!',
+        ];
+
+        return view('view.sub_view', $data);
+
+    }
+
 }
 
 

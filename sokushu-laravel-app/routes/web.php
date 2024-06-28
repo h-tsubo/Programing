@@ -25,4 +25,8 @@ Route::get('/view/foreach_loop', [ViewController::class, 'foreach_loop']);
 Route::get('/view/forelse', [ViewController::class, 'forelse']);
 Route::get('/view/style_class', [ViewController::class, 'style_class']);
 Route::get('/view/checked', [ViewController::class, 'checked']);
+Route::get('/view/master', [ViewController::class, 'master']);
+Route::get('/view/comp', [ViewController::class, 'comp']);
+Route::get('/view/use_dynamic_comp', [ViewController::class, 'use_dynamic_comp']);
+Route::get('/view/sub_view', [ViewController::class, 'sub_view']);
 
