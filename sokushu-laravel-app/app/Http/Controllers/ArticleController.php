@@ -12,7 +12,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return 'index';
+        $articles = Article::all();
+        return view('articles.list', ['articles' => $articles]);
     }
 
     /**
@@ -20,7 +21,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return 'create';
+        return view('articles.create');
     }
 
     /**
@@ -28,7 +29,15 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'memo' => 'nullable|string',
+        ]);
+
+        Article::create($validatedData);
+
+        return redirect('/articles')->with('success', 'Article created successfully.');
     }
 
     /**
@@ -36,7 +45,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return 'show';
+        return view('articles.show', ['article' => $article]);
     }
 
     /**
@@ -60,6 +69,10 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+
+        // 削除後のリダイレクトなどの処理を追加する場合
+        return redirect()->route('articles.index')
+                        ->with('success', '記事が削除されました');
     }
 }

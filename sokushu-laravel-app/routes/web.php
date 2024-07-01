@@ -67,3 +67,7 @@ Route::get('/route/enum_param/{category?}', [RouteController::class, 'enum_param
 Route::redirect('/hoge', '/', 301);
 
 Route::resource('/articles', ArticleController::class);
+
+Route::fallback(function () {
+    return view('route.error');
+});
