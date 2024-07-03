@@ -7,7 +7,7 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\Main\NameSpaceController;
 use App\Http\Controllers\ArticleController;
-
+use App\Http\Controllers\CtrlController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,7 +15,7 @@ Route::get('/', function () {
 
 Route::get('/hello', [HelloController::class, 'index']);
 Route::get('/hello/view', [HelloController::class, 'view']);
-Route::get('/hello/list', [HelloController::class, 'list']);
+Route::get('/hello/list', [HelloController::class, 'list'])->name('list');
 
 Route::prefix('view')->group(function () {
     Route::controller(ViewController::class)->group(function () {
@@ -43,7 +43,7 @@ Route::prefix('view')->group(function () {
 Route::get('/form', [FormController::class, 'showForm']);
 Route::post('/form', [FormController::class, 'postForm']);
 
-Route::get('/route/param/{id?}', [RouteController::class, 'param']);
+Route::get('/route/param/{id?}', [RouteController::class, 'param'])->name('param');
 Route::get(
     '/route/{year}/{month}/{day}',
     [RouteController::class, 'date']
@@ -67,6 +67,30 @@ Route::get('/route/enum_param/{category?}', [RouteController::class, 'enum_param
 Route::redirect('/hoge', '/', 301);
 
 Route::resource('/articles', ArticleController::class);
+
+Route::get('ctrl/plain', [CtrlController::class, 'plain']);
+Route::get('ctrl/header', [CtrlController::class, 'header']);
+Route::get('ctrl/headers', [CtrlController::class, 'headers']);
+Route::get('ctrl/outJson', [CtrlController::class, 'outJson']);
+Route::get('ctrl/outJsonAsAssoc', [CtrlController::class, 'outJsonAsAssoc']);
+Route::get('ctrl/outFile', [CtrlController::class, 'outFile']);
+Route::get('ctrl/outCsv', [CtrlController::class, 'outCsv']);
+Route::get('ctrl/outImage', [CtrlController::class, 'outImage']);
+Route::get('ctrl/redirectBasic', [CtrlController::class, 'redirectBasic']);
+Route::get('ctrl/redirectRoute', [CtrlController::class, 'redirectRoute']);
+Route::get('ctrl/redirectParam', [CtrlController::class, 'redirectParam']);
+Route::get('ctrl/redirectActionParam', [CtrlController::class, 'redirectActionParam']);
+Route::get('ctrl/redirectAway', [CtrlController::class, 'redirectAway']);
+Route::get('ctrl/index', [CtrlController::class, 'index']);
+Route::get('ctrl/hoge/{id?}', [CtrlController::class, 'hoge']);
+Route::get('ctrl/form', [CtrlController::class, 'form']);
+Route::post('ctrl/result', [CtrlController::class, 'result']);
+Route::get('ctrl/upload', [CtrlController::class, 'upload']);
+Route::post('ctrl/uploadfile', [CtrlController::class, 'uploadfile']);
+
+
+
+
 
 Route::fallback(function () {
     return view('route.error');
