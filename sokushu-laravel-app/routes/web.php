@@ -8,6 +8,8 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\Main\NameSpaceController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CtrlController;
+use App\Http\Middleware\LogMiddleware;
+use App\Http\Middleware\CheckAgeMiddleware;
 
 Route::get('/', function () {
     return view('welcome');
@@ -87,7 +89,19 @@ Route::get('ctrl/form', [CtrlController::class, 'form']);
 Route::post('ctrl/result', [CtrlController::class, 'result']);
 Route::get('ctrl/upload', [CtrlController::class, 'upload']);
 Route::post('ctrl/uploadfile', [CtrlController::class, 'uploadfile']);
+Route::get('ctrl/middle', [CtrlController::class, 'middle'])->middleware(LogMiddleware::class);
 
+Route::get('ctrl/18+', [CtrlController::class, 'overEighteen'])->middleware('check-age');
+
+Route::middleware(['check-age'])->group(function () {
+    Route::get('ctrl/18+', [CtrlController::class, 'overEighteen']);
+    Route::get('ctrl/18+/a', [CtrlController::class, 'overEighteen']);
+    Route::get('ctrl/18+/b', [CtrlController::class, 'overEighteen']);
+    Route::get('ctrl/18+/c', [CtrlController::class, 'overEighteen']);
+});
+
+Route::get('verify-age', [CtrlController::class, 'showVerificationForm'])->name('verify.age');
+Route::post('check-age', [CtrlController::class, 'checkAge'])->name('check.age');
 
 
 

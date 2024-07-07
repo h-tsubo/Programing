@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\RouteController;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use App\Http\Middleware\ControllerLogMiddleware;
 
-class CtrlController extends Controller
+class CtrlController extends Controller implements HasMiddleware
 {
+
+    public static function middleware():array {
+        return [
+            // 'auth',
+            new Middleware(ControllerLogMiddleware::class, except: ['plain']),
+            // new Middleware(ControllerLogMiddleware::class, ['except' => ['plain']]),
+        ];
+    }
+
     public function plain() {
         return response('Hello world!', 200)
             ->header('Content-Type', 'text/plain');
@@ -152,5 +164,34 @@ class CtrlController extends Controller
         return view('ctrl.upload', [
             'result' => $name.'アップロードしました。'
         ]);
+    }
+
+    public function middle() {
+        return 'log is recorded!';
+    }
+
+    public function overEighteen() {
+        return 'I am over 18.';
+    }
+
+    public function showVerificationForm()
+    {
+        return view('ctrl.verify_age');
+    }
+
+    public function checkAge(Request $request)
+    {
+        // 入力された年齢を取得
+        $ageConfirmation = $request->input('age_confirmation');
+
+        // 年齢のチェックロジック（例として、18歳以上かどうかを確認）
+        if ($ageConfirmation === 'yes') {
+            // 年齢が18歳以上の場合、セッションに年齢確認フラグをセット
+            $request->session()->put('age_verified', true);
+            return redirect('ctrl/18+'); // プロファイルページにリダイレクト
+        } else {
+            // 年齢が18歳未満の場合、ホームページにリダイレクト
+            return 'このページは閲覧できません！';
+        }
     }
 }
