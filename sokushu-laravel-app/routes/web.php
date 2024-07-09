@@ -8,6 +8,7 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\Main\NameSpaceController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CtrlController;
+use App\Http\Controllers\StateController;
 use App\Http\Middleware\LogMiddleware;
 use App\Http\Middleware\CheckAgeMiddleware;
 
@@ -70,40 +71,45 @@ Route::redirect('/hoge', '/', 301);
 
 Route::resource('/articles', ArticleController::class);
 
-Route::get('ctrl/plain', [CtrlController::class, 'plain']);
-Route::get('ctrl/header', [CtrlController::class, 'header']);
-Route::get('ctrl/headers', [CtrlController::class, 'headers']);
-Route::get('ctrl/outJson', [CtrlController::class, 'outJson']);
-Route::get('ctrl/outJsonAsAssoc', [CtrlController::class, 'outJsonAsAssoc']);
-Route::get('ctrl/outFile', [CtrlController::class, 'outFile']);
-Route::get('ctrl/outCsv', [CtrlController::class, 'outCsv']);
-Route::get('ctrl/outImage', [CtrlController::class, 'outImage']);
-Route::get('ctrl/redirectBasic', [CtrlController::class, 'redirectBasic']);
-Route::get('ctrl/redirectRoute', [CtrlController::class, 'redirectRoute']);
-Route::get('ctrl/redirectParam', [CtrlController::class, 'redirectParam']);
-Route::get('ctrl/redirectActionParam', [CtrlController::class, 'redirectActionParam']);
-Route::get('ctrl/redirectAway', [CtrlController::class, 'redirectAway']);
-Route::get('ctrl/index', [CtrlController::class, 'index']);
-Route::get('ctrl/hoge/{id?}', [CtrlController::class, 'hoge']);
-Route::get('ctrl/form', [CtrlController::class, 'form']);
-Route::post('ctrl/result', [CtrlController::class, 'result']);
-Route::get('ctrl/upload', [CtrlController::class, 'upload']);
-Route::post('ctrl/uploadfile', [CtrlController::class, 'uploadfile']);
-Route::get('ctrl/middle', [CtrlController::class, 'middle'])->middleware(LogMiddleware::class);
+Route::prefix('ctrl')->controller(CtrlController::class)->group(function () {
+    Route::get('plain', 'plain');
+    Route::get('header', 'header');
+    Route::get('headers', 'headers');
+    Route::get('outJson', 'outJson');
+    Route::get('outJsonAsAssoc', 'outJsonAsAssoc');
+    Route::get('outFile', 'outFile');
+    Route::get('outCsv', 'outCsv');
+    Route::get('outImage', 'outImage');
+    Route::get('redirectBasic', 'redirectBasic');
+    Route::get('redirectRoute', 'redirectRoute');
+    Route::get('redirectParam', 'redirectParam');
+    Route::get('redirectActionParam', 'redirectActionParam');
+    Route::get('redirectAway', 'redirectAway');
+    Route::get('index', 'index');
+    Route::get('hoge/{id?}', 'hoge');
+    Route::get('form', 'form');
+    Route::post('result', 'result');
+    Route::get('upload', 'upload');
+    Route::post('uploadfile', 'uploadfile');
+    Route::get('middle', 'middle')->middleware(LogMiddleware::class);
 
-Route::get('ctrl/18+', [CtrlController::class, 'overEighteen'])->middleware('check-age');
-
-Route::middleware(['check-age'])->group(function () {
-    Route::get('ctrl/18+', [CtrlController::class, 'overEighteen']);
-    Route::get('ctrl/18+/a', [CtrlController::class, 'overEighteen']);
-    Route::get('ctrl/18+/b', [CtrlController::class, 'overEighteen']);
-    Route::get('ctrl/18+/c', [CtrlController::class, 'overEighteen']);
+    Route::middleware(['check-age'])->group(function () {
+        Route::get('18+', 'overEighteen');
+        Route::get('18+/a', 'overEighteen');
+        Route::get('18+/b', 'overEighteen');
+        Route::get('18+/c', 'overEighteen');
+    });
 });
 
 Route::get('verify-age', [CtrlController::class, 'showVerificationForm'])->name('verify.age');
 Route::post('check-age', [CtrlController::class, 'checkAge'])->name('check.age');
 
-
+Route::prefix('state')->controller(StateController::class)->group(function () {
+    Route::get('recCookie', 'recCookie');
+    Route::get('readCookie', 'readCookie');
+    Route::get('session1', 'session1');
+    Route::get('session2', 'session2');
+});
 
 
 Route::fallback(function () {

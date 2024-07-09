@@ -140,7 +140,17 @@ class CtrlController extends Controller implements HasMiddleware
 
     public function result(Request $request) {
         $name = $request->input('name');
-        return view('ctrl.form', ['result' => 'Hello, '.$name.'!']);
+
+        if (empty($name) || mb_strlen($name) > 10) {
+            return redirect('ctrl/form')
+                ->withInput()
+                ->with('alert', '名前は必須、または、10文字以内で入力してください。');
+        } else {
+            $request->flash();
+            return view('ctrl.form', [
+                'result' => 'Hello, '.$name.'!'
+            ]);
+        }
     }
 
     public function upload() {
