@@ -9,6 +9,8 @@ use App\Http\Controllers\Main\NameSpaceController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CtrlController;
 use App\Http\Controllers\StateController;
+use App\Http\Controllers\RecordController;
+use App\Http\Controllers\SaveController;
 use App\Http\Middleware\LogMiddleware;
 use App\Http\Middleware\CheckAgeMiddleware;
 
@@ -109,6 +111,30 @@ Route::prefix('state')->controller(StateController::class)->group(function () {
     Route::get('readCookie', 'readCookie');
     Route::get('session1', 'session1');
     Route::get('session2', 'session2');
+});
+
+Route::prefix('record')->controller(RecordController::class)->group(function () {
+    Route::get('find1', 'find1');
+    Route::get('find/{id?}', 'findWithId');
+    Route::get('where', 'where');
+    Route::get('first', 'first');
+    Route::get('where-valiation', 'whereValiation');
+    Route::get('scope', 'scope');
+    Route::get('list', 'listUsingSql');
+    Route::get('dump', 'dump');
+    Route::get('dd', 'dd');
+    Route::get('hasmany', 'hasmany');
+    Route::get('books/{id?}/reviews', 'reviews');
+});
+
+Route::prefix('save')->controller(SaveController::class)->group(function () {
+    Route::get('create', 'create');
+    Route::post('', 'store');
+    Route::get('list', 'list');
+    Route::get('{id}/edit', 'edit');
+    Route::patch('{id}', 'update');
+    Route::get('{id}', 'show');
+    Route::delete('{id}', 'destroy');
 });
 
 
